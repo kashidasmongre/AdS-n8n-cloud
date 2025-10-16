@@ -1,11 +1,11 @@
 # n8n ki official image se shuru karo
 FROM n8nio/n8n:latest
 
-# Root user bano taaki permissions badal sakein
-USER root
+# Apni custom script ko container ke andar copy karo
+COPY entrypoint.sh /usr/local/bin/
 
-# Hamari problem ka solution: .n8n folder ka maalik node user ko bana do
-RUN chown -R node:node /home/node/.n8n
+# Script ko chalane ki permission do
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-# Suraksha ke liye wapas normal node user ban jao
-USER node
+# Is script ko container ka entrypoint bana do
+ENTRYPOINT ["entrypoint.sh"]
